@@ -1,0 +1,6 @@
+DoD
+-> Die API Funktioniert
+-> Auth verfahren ist problematisch nochmal checken
+-> Funktionalität nicht erweitern, nur js in typescript umwandeln
+-> Jenkins -> CI mit Unit Tests -> Jenkins Buch
+-> Jenkins, Postgres DB und Nestjs laufen in Docker
