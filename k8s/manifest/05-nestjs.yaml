@@ -1,23 +1,46 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: $Title$
-  labels:
-    app: $Title$
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: $Title$
-  template:
+apiVersion: v1
+kind: List
+items:
+
+  - apiVersion: v1
+    kind: Service
     metadata:
-      name: $Title$
-      labels:
-        app: $Title$
+      namespace: nestjs-kubernetes-namespace
+      name: nestjs-service
     spec:
-      containers:
-        - name: $Title$
-          image: $Image$
-          imagePullPolicy: IfNotPresent
-      restartPolicy: Always
-      $END$
+      type: LoadBalancer
+      ports:
+        - port: 3000
+          targetPort: 3000
+      selector:
+        app: nestjs
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: nestjs-api
+      labels:
+        app: api
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: api
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          name: api
+          labels:
+            app: api
+        spec:
+          containers:
+            - name: Title
+              image: nestjs-m
+              imagePullPolicy: IfNotPresent
+              env:
+              - name: KAFKA_BROKERS
+                valueFrom:
+                  configMapKeyRef:
+                    name: config-map
+                    key: kafka-url #Hier kommt das Postgres zeug hin
