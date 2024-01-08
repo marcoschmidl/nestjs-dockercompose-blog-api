@@ -13,15 +13,12 @@ export class ValidateInputPipe extends ValidationPipe {
       return await super.transform(value, metadata);
     } catch (e) {
       if (e instanceof BadRequestException) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const { message } = e.message;
-        throw new UnprocessableEntityException(this.handleError(message));
+        throw new UnprocessableEntityException(this.handleError(e.message));
       }
     }
   }
 
-  private handleError(errors: { constraints: any }[]) {
-    return errors.map((error: { constraints: any }) => error.constraints);
+  private handleError(errors) {
+    return errors.map((error) => error.constraints);
   }
 }

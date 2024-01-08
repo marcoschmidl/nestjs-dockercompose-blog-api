@@ -7,7 +7,6 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserController } from './modules/users/user.controller';
-import Joi from '@hapi/joi';
 
 @Module({
   imports: [

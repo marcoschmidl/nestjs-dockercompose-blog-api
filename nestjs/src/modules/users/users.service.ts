@@ -1,16 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Users } from './users.entity';
+import { Users } from './entity/users.entity';
 import { UserDto } from './dto/userdto';
+import { USER_REPOSITORY } from '../../core/constants';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('USER_REPOSITORY') ///TODO: in Anführungszeichen oder nicht?
+    @Inject(USER_REPOSITORY)
     private readonly userRepository: typeof Users,
   ) {}
 
-  async create(userDto: UserDto): Promise<Users> {
-    return await this.userRepository.create(userDto);
+  async create(user: UserDto): Promise<Users> {
+    return await this.userRepository.create<Users>(user);
   }
 
   async findOneByEmail(email: string): Promise<Users> {

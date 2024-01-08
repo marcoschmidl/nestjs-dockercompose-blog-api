@@ -1,8 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
-import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
+import { DEVELOPMENT, TEST, PRODUCTION, SEQUELIZE } from '../constants';
 import { databaseConfig } from './database.config';
-import { Users } from '../../modules/users/users.entity';
-import { PostDto } from '../../modules/posts/dto/postdto';
+import { Users } from '../../modules/users/entity/users.entity';
 import { Posts } from '../../modules/posts/posts.entity';
 
 export const databaseProviders = [
@@ -24,7 +23,7 @@ export const databaseProviders = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([Users, Posts]); // hier kommen alle Model hinzu. Ein Model wird in einem Modul erstellt.
+      sequelize.addModels([Users, Posts]);
       await sequelize.sync();
       return sequelize;
     },

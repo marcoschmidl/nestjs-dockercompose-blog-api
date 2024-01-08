@@ -6,7 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from '../users/users.entity 2';
+import { Users } from '../users/entity/users.entity';
 
 @Table
 export class Posts extends Model<Posts> {
@@ -22,13 +22,13 @@ export class Posts extends Model<Posts> {
   })
   body: string;
 
-  @ForeignKey(() => User)
+  @ForeignKey(() => Users)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   userId: number;
 
-  @BelongsTo(() => User)
-  user: User;
+  @BelongsTo(() => Users)
+  user: Users;
 }

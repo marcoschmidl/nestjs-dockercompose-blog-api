@@ -1,0 +1,25 @@
+nestjs besteht aus drei Varianten.
+
+Modulen, Providern und Controllern.
+Alle werden durch Annotationen gekennzeichnet.
+
+in der Main.ts ist der Startpunkt, da wird die NestFactory geladen und das App.module.
+In dem App.module wird alles referenziert.
+
+Die Annotationen sind Metadaten, die Angeben was für eine Funktion die Klasse hat.
+
+Es ist best practices das es im User verzeichnis verschiedene Module gibt und das Projekt zu organisieren
+
+
+ein Controller händelt den Request für eine bestimmte Route. Er kümmert sich dann um req und res.
+
+Frage: Wofür brauche ich den app.controller? und den app.service? Es wird doch alles in Module ausgelagert?
+
+Wichtig: Der Controller soll nur den Req und die Res handeln. Die Businesslogik wird ausgelagert.
+
+
+Das DTO wird anstelle des Bodys übergeben.
+
+
+https://www.freecodecamp.org/news/build-web-apis-with-nestjs-beginners-guide/
+https://github.com/onwuvic/nest-blog-api/blob/master/src/modules/users/dto/user.dto.ts

@@ -2,26 +2,28 @@ import { Injectable, Inject } from '@nestjs/common';
 import { POST_REPOSITORY } from '../../core/constants';
 import { PostDto } from './dto/postdto';
 import { Posts } from './posts.entity';
-import { User } from '../users/users.entity 2';
+import { Users } from '../users/entity/users.entity';
 
 @Injectable()
 export class PostsService {
-  constructor(@Inject(POST_REPOSITORY) private readonly postRepository: typeof Posts) { }
+  constructor(
+    @Inject(POST_REPOSITORY) private readonly postRepository: typeof Posts,
+  ) {}
 
-  async create(post: PostDto, userId): Promise<Posts> {
+  async create(post: PostDto, userId: any): Promise<Posts> {
     return await this.postRepository.create<Posts>({ ...post, userId });
   }
 
   async findAll(): Promise<Posts[]> {
     return await this.postRepository.findAll<Posts>({
-      include: [{ model: User, attributes: { exclude: ['password'] } }],
+      include: [{ model: Users, attributes: { exclude: ['password'] } }],
     });
   }
 
   async findOne(id): Promise<Posts> {
     return await this.postRepository.findOne({
       where: { id },
-      include: [{ model: User, attributes: { exclude: ['password'] } }],
+      include: [{ model: Users, attributes: { exclude: ['password'] } }],
     });
   }
 
